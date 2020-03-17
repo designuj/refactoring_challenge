@@ -24,6 +24,7 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
             String itemName = item.name;
+
             // We dont's need to modify SULFURAS, just check that quality is 80
             if(itemName.equals(SULFURAS)) {
                 if(item.quality != SULFURAS_QUALITY) {
@@ -31,15 +32,18 @@ class GildedRose {
                 }
             } else {
                 item.sellIn--;
-                if (itemName.equals(AGED_BRIE)) {
-                    incrementQuality(item);
-                } else if (itemName.equals(BACKSTAGE_PASSES_TO_CONCERT)) {
-                    processBackstagePassedToConcert(item);
-                } else {
-                    decrementQuality(item);
-                    if(itemName.equals(CONJURED)) {
+                switch (itemName) {
+                    case AGED_BRIE:
+                        incrementQuality(item);
+                        break;
+                    case BACKSTAGE_PASSES_TO_CONCERT:
+                        processBackstagePassedToConcert(item);
+                        break;
+                    default:
                         decrementQuality(item);
-                    }
+                        if(itemName.equals(CONJURED)) {
+                            decrementQuality(item);
+                        }
                 }
             }
         }
