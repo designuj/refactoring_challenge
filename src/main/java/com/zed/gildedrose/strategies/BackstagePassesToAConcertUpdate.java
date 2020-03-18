@@ -9,13 +9,13 @@ import com.zed.gildedrose.Item;
 public class BackstagePassesToAConcertUpdate implements UpdateStrategy {
 
     @Override
-    public void update(Item item) {
+    public void updateItem(Item item) {
         if (item.sellIn < 0) {
             item.quality = 0;
         } else {
-            incrementQuality(item);
-            if (item.sellIn < 10) incrementQuality(item);
-            if (item.sellIn < 5) incrementQuality(item);
+            changeQuality(item, 1, false);
+            if (item.sellIn < 10) changeQuality(item, 1, false);
+            if (item.sellIn < 5) changeQuality(item, 1, false);
         }
     }
 }

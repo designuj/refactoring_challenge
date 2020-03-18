@@ -13,7 +13,7 @@ import static com.zed.gildedrose.GildedRose.SULFURAS_QUALITY;
 public class SulfrasUpdate implements UpdateStrategy {
 
     @Override
-    public void update(Item item) {
+    public void updateItem(Item item) {
         Optional.of(item)
                 .filter(s -> s.quality == SULFURAS_QUALITY)
                 .orElseThrow(IllegalArgumentException::new);

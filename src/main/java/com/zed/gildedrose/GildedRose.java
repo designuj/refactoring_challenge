@@ -2,6 +2,8 @@ package com.zed.gildedrose;
 
 import com.zed.gildedrose.strategies.*;
 
+import static com.zed.gildedrose.strategies.SimpleType.*;
+
 public class GildedRose {
     Item[] items;
 
@@ -28,27 +30,34 @@ public class GildedRose {
         for (Item item : items) {
             String itemName = item.name;
 
+            //create new strategy
             UpdateStrategy updateStrategy;
 
+            //get it covered
+            ItemBox itemBox = new ItemBox();
+
+            //put item to box
+            itemBox.setItem(item);
+
+            //where should I go?
             switch (itemName) {
                 case SULFURAS:
                     updateStrategy = new SulfrasUpdate();
                     break;
-                case AGED_BRIE:
-                    updateStrategy = new AgedBrieUpdate();
-                    break;
                 case BACKSTAGE_PASSES_TO_CONCERT:
                     updateStrategy = new BackstagePassesToAConcertUpdate();
                     break;
+                case AGED_BRIE:
+                    updateStrategy = new SimpleUpdate(CHOOSE_AGED_BRIE);
+                    break;
                 case CONJURED:
-                    updateStrategy = new ConjuredUpdate();
+                    updateStrategy = new SimpleUpdate(CHOOSE_CONJURED);
                     break;
                 default:
-                    updateStrategy = new NothingSpecialUpdate();
+                    updateStrategy = new SimpleUpdate(CHOOSE_DEFAULT);
             }
 
-            updateStrategy.dayGone(item);
-            updateStrategy.update(item);
+            updateStrategy.updateItem(itemBox.openForNextDay());
         }
     }
 }
